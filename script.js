@@ -5,11 +5,15 @@ function eleve(prenom, nom, sexe, age) {
     this.sexe = sexe;
     this.age = age;
     this.affiche = function () {
-        console.log("Monsieur/Madame " + this.prenom + this.nom)
+        if (this.sexe == "m"){
+        console.log("Monsieur " + this.prenom + " " + this.nom);
+        }
+        if (this.sexe == "f"){
+        console.log("madame " + this.prenom + " " + this.nom);
+        }
     }
 }
-var jim = new eleve("jim", "bo", "m", 27);
-var leo = new eleve("leo", "sub", "f", 8);
+
 
 var curIdEleve = 0
 
@@ -26,11 +30,6 @@ function classe() {
     this.removeEleve = function (id) {
         this.eleves.splice(id, 1)
     }
-
-    this.affiche = function () {
-        console.log(this.eleves)
-    }
-
     this.compteEleve = function (sexe) {
         var nbEleve = this.eleves.length;
         var masculin = 0;
@@ -41,24 +40,53 @@ function classe() {
             }
         }
         feminin = nbEleve - masculin;
-        if (sexe == "m"){
-            return console.log(masculin)
+        if (sexe == "m") {
+            return masculin
         }
-        else if (sexe == "f"){
-            return console.log(feminin)
+        else if (sexe == "f") {
+            return feminin
         }
-        else if (sexe == "a"){
-            return console.log(nbEleve)
+        else if (sexe == "a") {
+            return nbEleve
         }
         else {
-            return console.log("erreur d'argument")
+            return "erreur d'argument"
         }
     }
+    this.afficheEleves = function () {
+        console.log("cette classe contient les eleves suivant : ")
+        for (var i = 0; i < this.eleves.length; i++) {
+            this.eleves[i].affiche()
+        }
+
+    }
+    this.moyenneAgeEleves = function () {
+        var total = 0;
+        var nbEleve = this.eleves.length;
+        for (var i = 0; i < nbEleve; i++) {
+            total += parseInt(this.eleves[i].age)
+        }
+        return total / nbEleve
+    }
+
+
+
+
+    this.afficheStatClasse = function () {
+        console.log("cette classe contient : " + this.compteEleve("a") + " eleves")
+        console.log("cette classe contient : " + this.compteEleve("m") + " hommes")
+        console.log("cette classe contient : " + this.compteEleve("f") + " femmes")
+        console.log("La moyenne d'age des eleves est de : " + this.moyenneAgeEleves() + " ans")
+    }
 }
+var jim = new eleve("jim", "bo", "m", 30);
+var leo = new eleve("leo", "sub", "f", 20);
 var classe1 = new classe()
 classe1.addEleve(jim)
 classe1.addEleve(leo)
-jim.affiche()
-leo.affiche()
-classe1.affiche()
-classe1.compteEleve("f")
+// jim.affiche()
+// leo.affiche()
+// classe1.affiche()
+// classe1.compteEleve("f")
+classe1.afficheEleves()
+classe1.afficheStatClasse()
