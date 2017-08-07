@@ -2,8 +2,8 @@ function eleve(id, prenom, nom, sexe, age) {
     this.id = id;
     this.prenom = prenom;
     this.nom = nom;
-    this.sexe = sexe;
-    this.age = age;
+    this.sexe = sexe.toLowerCase();
+    this.age = parseInt(age);
     this.affiche = function () {
         if (this.sexe == "m"){
         console.log("Monsieur " + this.prenom + " " + this.nom);
@@ -48,7 +48,7 @@ function classe() {
             return nbEleve
         }
         else {
-            return "erreur d'argument"
+            return "erreur d'argument, veuillez renseignez 'm' ou 'f' ou 'a'"
         }
     }
     //methode affiche les eleves
@@ -64,7 +64,7 @@ function classe() {
         var total = 0;
         var nbEleve = this.eleves.length;
         for (var i = 0; i < nbEleve; i++) {
-            total += parseInt(this.eleves[i].age)
+            total += this.eleves[i].age
         }
         return total / nbEleve
     }
